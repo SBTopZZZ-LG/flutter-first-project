@@ -32,7 +32,7 @@ class _MyAppState extends State<MyApp> {
     "matchPairs": ["012", "112", "121", "200", "212"]
   };
 
-  void answerQuestion(int answerIndex) {
+  void _answerQuestion(int answerIndex) {
     answerIndex--;
     _answerPattern = _answerPattern + answerIndex.toString();
     setState(() {
@@ -44,7 +44,7 @@ class _MyAppState extends State<MyApp> {
     return (_qnas["matchPairs"]).contains(_answerPattern);
   }
 
-  void resetQuiz() {
+  void _resetQuiz() {
     setState(() {
       _answerPattern = "";
       _questionIndex = 0;
@@ -73,7 +73,7 @@ class _MyAppState extends State<MyApp> {
                     key++;
                     return Answer(
                         answerIndex: key,
-                        onPressedCallback: answerQuestion,
+                        onPressedCallback: _answerQuestion,
                         btnText:
                             "${_questionIndex < _qnas["questions"].length ? (_qnas["answers"][_questionIndex] as List)[key - 1] : (_qnas["answers"][_qnas["questions"].length - 1] as List)[key - 1]}");
                   }).toList(),
@@ -89,8 +89,11 @@ class _MyAppState extends State<MyApp> {
                       style: TextStyle(fontSize: 25),
                       textAlign: TextAlign.center,
                     ),
-                    ElevatedButton(
-                        onPressed: resetQuiz, child: Text("Reset Quiz")),
+                    TextButton(
+                        onPressed: _resetQuiz,
+                        child: Text(
+                          "Reset Quiz",
+                        )),
                   ],
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
